@@ -7,8 +7,38 @@ let db = new Map()
 var id = 1
 
 app.post('/login',(req,res)=>{
-    
+
+    const {userId, password} = req.body
+    var loginUser = {}
+
+    db.forEach((user,id)=>{
+        if(user.userId === userId){
+            loginUser = user
+        }
+    })
+
+    if(isExist(loginUser)){
+        console.log("id같음")
+        
+        if(loginUser.password === password){
+            console.log("pw같음")
+        }else{  
+            console.log("pw틀림")
+        }
+
+    }else{
+        console.log("입력하신 id는 없는 아이디다.")
+    }
 })
+
+function isExist(obj){
+    // if(obj.constructor === Object) 
+    if(Object.keys(obj).length){
+        return true;
+    }else{
+        return false;
+    }
+}
 
 app.post('/join',(req,res)=>{
     console.log(req.body)
